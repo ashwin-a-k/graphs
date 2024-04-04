@@ -8,3 +8,11 @@
 using namespace std;
 #include <iostream>
 #include "DenseGraph.h"
+
+#ifndef DIRECTED_GRAPH // Directed Graphs
+
+
+
+
+#ifndef UNDIRECTED_GRAPH // Undirected graph <- in specific implementations in insertEdge and other places
+
