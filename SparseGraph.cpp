@@ -9,5 +9,8 @@ using namespace std;
 #include <iostream>
 #include "SparseGraph.h"
 
+#ifndef DIRECTED_GRAPH // Directed Graphs
+
+#ifndef UNDIRECTED_GRAPH // Undirected graph <- in specific implementations in insertEdge and other places
 
 

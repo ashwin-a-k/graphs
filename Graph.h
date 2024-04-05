@@ -19,13 +19,13 @@ public:
 				Graph		(const Graph& graph1);
 virtual 			~Graph		(void);
 		Graph<T>	operator=	(const Graph<T> &graph1);
-virtual	bool		isEdge		(int v1, int v2);
-virtual	T		getWeight	(int v1, int v2);
-virtual	void		insertEdge	(int v1, int v2, T w)
+virtual	bool		isEdge		(int v1, int v2) const = 0;
+virtual	T		getWeight	(int v1, int v2) const = 0;
+virtual	void		insertEdge	(int v1, int v2, T w) const = 0;
 
 private:
 	int numVerticies;
-	int numEdges
+	int numEdges;
 };
 
 #endif

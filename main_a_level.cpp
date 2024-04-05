@@ -6,7 +6,7 @@
 // It assumes students are completing the a_level option
 //============================================================
 
-// #include "Graph.h" -> do we need this?
+#include "Graph.h"
 #include "DenseGraph.h"
 #include "SparseGraph.h"
 #include <iostream>
