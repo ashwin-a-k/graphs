@@ -14,7 +14,7 @@ using namespace std;
 template <class T>
 Graph<T>::Graph ( void )
 {
-	numVerticies = 0;
+	numVerticies = 10;
 	numEdges = 0;
 }
 

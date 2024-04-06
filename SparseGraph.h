@@ -15,12 +15,12 @@ template <typename T>
 class SparseGraph : public Graph { //example of how inheritance works
 public:
 				// no need for construcor and destructor i think?
-				SparseGraph	(int V);
-virtual 			~SparseGraph	(void);
-		SparseGraph<T>	operator=	(const Graph<T> &graph1);
-virtual	bool		isEdge		(int v1, int v2) const override;
-virtual	T		getWeight	(int v1, int v2) const override;
-virtual	void		insertEdge	(int v1, int v2, T w) const override;
+			SparseGraph	(int V, int E);
+			~SparseGraph	(void);
+	SparseGraph<T>	operator=	(const Graph<T> &graph1);
+	bool		isEdge		(int v1, int v2) const override;
+	T		getWeight	(int v1, int v2) const override;
+	void		insertEdge	(int v1, int v2, T w) const override;
 
 private:
 	struct AdjecencyListNode // this should be a linked list

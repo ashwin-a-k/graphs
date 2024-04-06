@@ -15,13 +15,14 @@ using namespace std;
 template <typename T>
 class SparseGraph : public Graph { //example of how inheritance works
 public:
-				// no need for constructor, and copy constructor
-				DenseGraph	(int V);
-virtual 			~DenseGraph	(void);
-		DenseGraph<T>	operator=	(const DenseGraph<T> &graph1);
-virtual	bool		isEdge		(int v1, int v2) const override;
-virtual	T		getWeight	(int v1, int v2) const override;
-virtual	void		insertEdge	(int v1, int v2, T w) const override;
+				
+			DenseGraph	(int V, int E);
+ 			~DenseGraph	(void);
+			DenseGraph	(const DenseGraph& graph1)
+	DenseGraph<T>	operator=	(const DenseGraph<T> &graph1);
+	bool		isEdge		(int v1, int v2) const override;
+	T		getWeight	(int v1, int v2) const override;
+	void		insertEdge	(int v1, int v2, T w) const override;
 
 private:
 	
