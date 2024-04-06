@@ -18,7 +18,7 @@ public:
 				
 			DenseGraph	(int V, int E);
  			~DenseGraph	(void);
-			DenseGraph	(const DenseGraph& graph1)
+			DenseGraph	(const DenseGraph& graph1);
 	DenseGraph<T>	operator=	(const DenseGraph<T> &graph1);
 	bool		isEdge		(int v1, int v2) const override;
 	T		getWeight	(int v1, int v2) const override;
