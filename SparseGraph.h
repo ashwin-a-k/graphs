@@ -14,7 +14,7 @@ using namespace std;
 template <typename T>
 class SparseGraph : public Graph { //example of how inheritance works
 public:
-				// no need for construcor and destructor i think?
+				// no need for constructor and destructor i think?
 			SparseGraph	(int V, int E);
 			~SparseGraph	(void);
 	SparseGraph<T>	operator=	(const Graph<T> &graph1);

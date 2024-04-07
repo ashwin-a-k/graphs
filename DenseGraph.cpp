@@ -7,17 +7,26 @@
 
 using namespace std;
 #include <iostream>
+#include <vector>
 #include "DenseGraph.h"
 
-#ifndef DIRECTED_GRAPH // Directed Graphs
+// #ifndef DIRECTED_GRAPH Directed Graphs
 
-#ifndef UNDIRECTED_GRAPH // Undirected graph <- in specific implementations in insertEdge and other places
+// #ifndef UNDIRECTED_GRAPH  Undirected graph <- in specific implementations in insertEdge and other places
 
 template <class T>
 DenseGraph<T>::DenseGraph ( void ) : Graph (void)
 {
 	// empty because same as default class
 }
+
+
+template <class T>
+DenseGraph<T>::DenseGraph ( int V, int E )
+{
+	twodimensionlist[V][E];
+}
+
 
 template <class T>
 DenseGraph<T>::~DenseGraph ( void )
