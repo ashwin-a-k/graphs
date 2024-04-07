@@ -14,22 +14,19 @@ using namespace std;
 
 // #ifndef UNDIRECTED_GRAPH  Undirected graph <- in specific implementations in insertEdge and other places
 
-template <class T>
-DenseGraph<T>::DenseGraph ( void ) : Graph (void)
+DenseGraph::DenseGraph ( void ) : Graph (void)
 {
 	// empty because same as default class
 }
 
 
-template <class T>
-DenseGraph<T>::DenseGraph ( int V, int E )
+DenseGraph::DenseGraph ( int V, int E )
 {
 	twodimensionlist[V][E];
 }
 
 
-template <class T>
-DenseGraph<T>::~DenseGraph ( void )
+DenseGraph::~DenseGraph ( void )
 {
 	for (int i = 0; i < V; i++)
 	{
@@ -38,8 +35,7 @@ DenseGraph<T>::~DenseGraph ( void )
 	delete[] twodimensionlist;
 }
 
-template <class T>
-DenseGraph<T>::DenseGraph(const DenseGraph<T> &graph1) : Graph<T>(graph1.numVerticies, other.numEdges)
+DenseGraph::DenseGraph(const DenseGraph<T> &graph1) : Graph<T>(graph1.numVerticies, other.numEdges)
 {
 	twodimensionlist = new T*[this->numVerticies];
 	for (int i = 0; i < this->numVerticies; i++)
@@ -53,8 +49,7 @@ DenseGraph<T>::DenseGraph(const DenseGraph<T> &graph1) : Graph<T>(graph1.numVert
 }
 
 // assignment operator
-template <class T>
-DenseGraph<T>	DenseGraph<T>::operator=(const DenseGraph<T> &graph1)
+DenseGraph	DenseGraph::operator=(const DenseGraph<T> &graph1)
 {
 	if (*this != &graph1)
 	{
@@ -67,10 +62,10 @@ DenseGraph<T>	DenseGraph<T>::operator=(const DenseGraph<T> &graph1)
 	numVerticies = graph1.V;
 	numEdges = graph1.E;
 	
-	twodimensionlist = new T*[this->numVerticies];
+	twodimensionlist = new int*[this->numVerticies];
 	for (int i = 0; i < this->numVerticies; i++)
 	{
-		twodimensionlist[i] = new T[this->numVerticies];
+		twodimensionlist[i] = new int[this->numVerticies];
 		for (int j = 0; j < this->numVerticies; j++)
 		{
 			twodimensionlist[i][j] = graph1.twodimensionlist[i][j];
@@ -81,8 +76,7 @@ DenseGraph<T>	DenseGraph<T>::operator=(const DenseGraph<T> &graph1)
 }
 
 //isEdge
-template <class T>
-bool DenseGraph<T>::isEdge(int v1, int v2)
+bool DenseGraph::isEdge(int v1, int v2)
 {
 	// don't have to specify undirected or directed because assumed 
 	if (v1 < 0 or v1 >= V or v2 < 0 or v2 >= V)
@@ -93,8 +87,7 @@ bool DenseGraph<T>::isEdge(int v1, int v2)
 }
 
 //getWeight
-template <class T>
-T DenseGraph<T>::getWeight(int v1, int v2)
+T DenseGraph::getWeight(int v1, int v2)
 {
 	if (v1 < 0 or v1 >= V or v2 < 0 or v2 >= V)
 		throw out_of_range("Index out of range");  
@@ -102,8 +95,7 @@ T DenseGraph<T>::getWeight(int v1, int v2)
 }
 
 //insertEdge
-template <class T>
-void DenseGraph<T>::insertEdge (int v1, int v2, T w)
+void DenseGraph::insertEdge (int v1, int v2, int w)
 {
 	if (v1 < 0 or v1 >= V or v2 < 0 or v2 >= V)
 		throw out_of_range("Index out of range");

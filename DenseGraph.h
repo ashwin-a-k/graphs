@@ -13,7 +13,6 @@ using namespace std;
 #define DENSEGRAPH_H
 
 
-template <typename T>
 class SparseGraph : public Graph { //example of how inheritance works
 public:
 				
@@ -23,8 +22,8 @@ public:
 			DenseGraph	(const DenseGraph& graph1) const override;
 	DenseGraph<T>	operator=	(const DenseGraph<T> &graph1) const override;
 	bool		isEdge		(int v1, int v2) const override;
-	T		getWeight	(int v1, int v2) const override;
-	void		insertEdge	(int v1, int v2, T w) const override;
+	int		getWeight	(int v1, int v2) const override;
+	void		insertEdge	(int v1, int v2, int w) const override;
 
 private:
 	

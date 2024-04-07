@@ -11,24 +11,21 @@ using namespace std;
 
 
 // constuctor
-template <class T>
-Graph<T>::Graph ( void )
+Graph::Graph ( void )
 {
 	numVerticies = 10;
 	numEdges = 0;
 }
 
 // constructor with parameters
-template <class T>
-Graph<T>::Graph (int V, int E)
+Graph::Graph (int V, int E)
 {
 	numVerticies = V;
 	numEdges = E;
 }
 
 // Copy Constructor
-template <class T>
-Graph<T>::Graph (const Graph& graph1)
+Graph::Graph (const Graph& graph1)
 {
 	numVerticies = graph1.numVerticies;
 	numEdges = graph1.numEdges;

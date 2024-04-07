@@ -81,7 +81,7 @@ T SparseGraph<T>::getWeight(int v1, int v2) const {
 
 
 template <typename T>
-void SparseGraph<T>::insertEdge(int v1, int v2, T w) {
+void SparseGraph<T>::insertEdge(int v1, int v2, int w) {
     AdjecencyListNode* newNode = new AdjecencyListNode(v2, w);
     newNode->next = list[v1];
     list[v1] = newNode;
