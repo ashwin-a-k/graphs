@@ -1,5 +1,5 @@
 //===============================================================
-// DenseGraph.cpp
+// DenseGraph.h
 // implementation of DenseGraph class
 // Name: Ashwin Krishnamurthy, Tanvi Shegaonkar, Dipanker Thapa
 // April 2024
@@ -13,21 +13,21 @@ using namespace std;
 #define DENSEGRAPH_H
 
 
-class SparseGraph : public Graph { //example of how inheritance works
+class DenseGraph : public Graph { //example of how inheritance works
 public:
 				
 			DenseGraph	( void );
 			DenseGraph	(int V, int E);
- 			~DenseGraph	(void) const override;
-			DenseGraph	(const DenseGraph& graph1) const override;
-	DenseGraph<T>	operator=	(const DenseGraph<T> &graph1) const override;
-	bool		isEdge		(int v1, int v2) const override;
-	int		getWeight	(int v1, int v2) const override;
-	void		insertEdge	(int v1, int v2, int w) const override;
+ 			~DenseGraph	(void) override;
+			DenseGraph	(const DenseGraph& graph1) override;
+	DenseGraph<T>	operator=	(const DenseGraph<T> &graph1) override;
+	bool		isEdge		(int v1, int v2) override;
+	int		getWeight	(int v1, int v2) override;
+	void		insertEdge	(int v1, int v2, int w) override;
 
-private:
+protected:
 	
-	T** twodimensionlist; // may need more? Have to look more into what exactly dense graph is.
+	int** twodimensionlist; 
 };
 
 #endif

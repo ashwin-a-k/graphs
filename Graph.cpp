@@ -31,5 +31,10 @@ Graph::Graph (const Graph& graph1)
 	numEdges = graph1.numEdges;
 }
 
+Graph::~Graph ( void )
+{
+	// nothing goes here, nothing to deallocate
+}
+
 // The rest of this class it virtual, polymorphism takes place
 

@@ -20,9 +20,15 @@ DenseGraph::DenseGraph ( void ) : Graph (void)
 }
 
 
-DenseGraph::DenseGraph ( int V, int E )
+DenseGraph::DenseGraph ( int V, int E ): Graph (V, E)
 {
-	twodimensionlist[V][E];
+	twodimensionlist = new int*[V];
+	for (int i = 0; i < V; i++)
+	{
+		twodimensionlist = new int[V]
+		for (int j = 0; j < V; j++)
+			twodimensionlist[i][j] = -1;
+	}
 }
 
 
@@ -35,12 +41,12 @@ DenseGraph::~DenseGraph ( void )
 	delete[] twodimensionlist;
 }
 
-DenseGraph::DenseGraph(const DenseGraph<T> &graph1) : Graph<T>(graph1.numVerticies, other.numEdges)
+DenseGraph::DenseGraph(const DenseGraph &graph1) : Graph(graph1.numVerticies, other.numEdges)
 {
-	twodimensionlist = new T*[this->numVerticies];
+	twodimensionlist = new int*[this->numVerticies];
 	for (int i = 0; i < this->numVerticies; i++)
 	{
-		twodimensionlist[i] = new T[this->numVerticies];
+		twodimensionlist[i] = new int[this->numVerticies];
 		for (int j = 0; j < this->numVerticies; j++)
 		{
 			twodimensionlist[i][j] = graph1.twodimensionlist[i][j];
@@ -49,7 +55,7 @@ DenseGraph::DenseGraph(const DenseGraph<T> &graph1) : Graph<T>(graph1.numVertici
 }
 
 // assignment operator
-DenseGraph	DenseGraph::operator=(const DenseGraph<T> &graph1)
+DenseGraph	DenseGraph::operator=(const DenseGraph &graph1)
 {
 	if (*this != &graph1)
 	{
@@ -87,9 +93,9 @@ bool DenseGraph::isEdge(int v1, int v2)
 }
 
 //getWeight
-T DenseGraph::getWeight(int v1, int v2)
+int DenseGraph::getWeight(int v1, int v2)
 {
-	if (v1 < 0 or v1 >= V or v2 < 0 or v2 >= V)
+	if (v1 < 0 or v1 >= numVerticies or v2 < 0 or v2 >= numVerticies)
 		throw out_of_range("Index out of range");  
 	return twodimensionlist[v1][v2];
 }
@@ -97,7 +103,7 @@ T DenseGraph::getWeight(int v1, int v2)
 //insertEdge
 void DenseGraph::insertEdge (int v1, int v2, int w)
 {
-	if (v1 < 0 or v1 >= V or v2 < 0 or v2 >= V)
+	if (v1 < 0 or v1 >= numVerticies or v2 < 0 or v2 >= numVerticies)
 		throw out_of_range("Index out of range");
 	twodimensionlist[v1][v2] = w;
 	#ifndef DIRECTED_GRAPH
