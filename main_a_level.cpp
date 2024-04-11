@@ -15,16 +15,19 @@ using namespace std;
 int main ( void )
 {
    Graph *gp;
+   Graph *gp1;
 
    int nv, ne;
    cin >> nv >> ne;
 
    //gp = new DenseGraph(nv,ne);   // should work with either choice
-   gp = new SparseGraph(nv,ne);
+   gp1 = new SparseGraph(nv,ne);
 
+	/*
    cin >> (*gp);                    // read in the graph
    cout << (*gp);                   // print out the graph
-
+	*/
+	
    printf("Edge Testing\n");
 
    int v1, v2, w;
@@ -44,10 +47,10 @@ int main ( void )
    v2 = 3;
    printf("Is there an edge from %d to %d: %d\n",v1,v2,gp->isEdge(v1,v2));
 
-   Graph *gp2 = new SparseGraph(*(SparseGraph *)gp);
-   cout << (*gp2);                   // print out the graph
+   //Graph *gp2 = new SparseGraph(*(SparseGraph *)gp);
+   //cout << (*gp2);                   // print out the graph
 
    delete gp;
-   delete gp2;
+   //delete gp2;
    return 0;
 }

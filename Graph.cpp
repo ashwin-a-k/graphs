@@ -25,15 +25,26 @@ Graph::Graph (int V, int E)
 }
 
 // Copy Constructor
-Graph::Graph (const Graph& graph1)
+Graph::Graph (Graph * graph1)
 {
-	numVerticies = graph1.numVerticies;
-	numEdges = graph1.numEdges;
+	numVerticies = graph1->numVerticies;
+	numEdges = graph1->numEdges;
 }
 
 Graph::~Graph ( void )
 {
 	// nothing goes here, nothing to deallocate
+}
+
+
+bool	Graph::isEdge		(int v1, int v2)
+{
+}
+int	Graph::getWeight	(int v1, int v2)
+{
+}
+void	Graph::insertEdge	(int v1, int v2, int w)
+{
 }
 
 // The rest of this class it virtual, polymorphism takes place

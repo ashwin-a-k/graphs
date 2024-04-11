@@ -10,88 +10,68 @@ using namespace std;
 #include <vector>
 #include "SparseGraph.h"
 
-// #ifndef DIRECTED_GRAPH // Directed Graphs
+//#ifndef DIRECTED_GRAPH // Directed Graphs
 
-// #ifndef UNDIRECTED_GRAPH // Undirected graph <- in specific implementations in insertEdge and other places
-
-
-template <class T>
-SparseGraph<T>::SparseGraph(int V) {
-
-	list = new AdjecencyListNode* [V];
-	for (int i = 0; i < V; i++){
-		list [i] = nullptr;
-	
-	}
-}
+//#ifndef UNDIRECTED_GRAPH // Undirected graph <- in specific implementations in insertEdge and other places
 
 
-template <typename T>
-SparseGraph<T>::~SparseGraph() {
-	
-	for (int i = 0; i < this->V; i++) { // looping thru from 0 to num of vertices
-	
-		AdjencyListNode* current = list[i];
-		while (current != nullptr) {
-		
-			AdjecencyListNode* temp = current;
-			current = current-> next;
-			delete temp;
-		}
-	
-	delete[] list;
-	}
-
+SparseGraph::SparseGraph() : Graph() 
+{
 
 }
-
-
-template <typename T>
-bool SparseGraph<T>::isEdge(int v1, int v2) const {
-
-	AdjecencyListNode* current = list[v1];
-	while (current != nullptr) {
-	
-		if (current->vertex == v2) {
-			return true;
-		
-		}
-		current = current->next;
-		
-	}
-	return false;
-
-
+ 
+SparseGraph::SparseGraph(int V, int E) : Graph(V, E) 
+{
+    list.resize(V);
 }
 
-template <typename T>
-T SparseGraph<T>::getWeight(int v1, int v2) const {	
-
-	AdjecencyListNode* current = list[v1];
-	while (current != nullptr) {
-	
-		if (current->vertex == v2) {
-			return current->weight;
-		}
-		current = current->next;
-	}
-	return T();
-
+SparseGraph::SparseGraph(Graph * graph) : Graph(graph) 
+{
+    V = graph-> numVerticies;
+    E = graph-> numEdges;
+    list = graph.list;
 }
 
-
-template <typename T>
-void SparseGraph<T>::insertEdge(int v1, int v2, int w) {
-    AdjecencyListNode* newNode = new AdjecencyListNode(v2, w);
-    newNode->next = list[v1];
-    list[v1] = newNode;
+SparseGraph::~SparseGraph() 
+{
+    // No need to explicitly delete nodes, as std::vector handles memory management
 }
 
+SparseGraph& SparseGraph::operator=(Graph * graph) 
+{
+    if (this != &graph) {
+        Graph::operator=(graph);
+        V = graph-> numVerticies;
+        E = graph-> numEdges;
+        list = graph.list;
+    }
+    return *this;
+}
 
+bool SparseGraph::isEdge(int v1, int v2) 
+{
+    for (const auto& node : list[v1]) {
+        if (node.vertex == v2) {
+            return true;
+        }
+    }
+    return false;
+}
 
+int SparseGraph::getWeight(int v1, int v2)
+{
+    for (const auto& node : list[v1]) {
+        if (node.vertex == v2) {
+            return node.weight;
+        }
+    }
+    return 0;
+}
 
-
-
+void SparseGraph::insertEdge(int v1, int v2, int w) 
+{
+    list[v1].emplace_back(v2, w);
+}
 
 
 

@@ -14,10 +14,7 @@ using namespace std;
 
 // #ifndef UNDIRECTED_GRAPH  Undirected graph <- in specific implementations in insertEdge and other places
 
-DenseGraph::DenseGraph ( void ) : Graph (void)
-{
-	// empty because same as default class
-}
+
 
 
 DenseGraph::DenseGraph ( int V, int E ): Graph (V, E)
@@ -25,7 +22,7 @@ DenseGraph::DenseGraph ( int V, int E ): Graph (V, E)
 	twodimensionlist = new int*[V];
 	for (int i = 0; i < V; i++)
 	{
-		twodimensionlist = new int[V]
+		twodimensionlist[i] = new int[V];
 		for (int j = 0; j < V; j++)
 			twodimensionlist[i][j] = -1;
 	}
@@ -34,6 +31,7 @@ DenseGraph::DenseGraph ( int V, int E ): Graph (V, E)
 
 DenseGraph::~DenseGraph ( void )
 {
+	twodimensionlist.size
 	for (int i = 0; i < V; i++)
 	{
 		delete[] twodimensionlist[i];
@@ -41,7 +39,7 @@ DenseGraph::~DenseGraph ( void )
 	delete[] twodimensionlist;
 }
 
-DenseGraph::DenseGraph(const DenseGraph &graph1) : Graph(graph1.numVerticies, other.numEdges)
+DenseGraph::DenseGraph(Graph * graph1) : Graph( graph1)
 {
 	twodimensionlist = new int*[this->numVerticies];
 	for (int i = 0; i < this->numVerticies; i++)
@@ -49,13 +47,13 @@ DenseGraph::DenseGraph(const DenseGraph &graph1) : Graph(graph1.numVerticies, ot
 		twodimensionlist[i] = new int[this->numVerticies];
 		for (int j = 0; j < this->numVerticies; j++)
 		{
-			twodimensionlist[i][j] = graph1.twodimensionlist[i][j];
+			twodimensionlist[i][j] = graph1->twodimensionlist[i][j];
 		}
 	}
 }
 
 // assignment operator
-DenseGraph	DenseGraph::operator=(const DenseGraph &graph1)
+DenseGraph&	DenseGraph::operator=(Graph * graph1) : Graph(graph1)
 {
 	if (*this != &graph1)
 	{
@@ -74,9 +72,10 @@ DenseGraph	DenseGraph::operator=(const DenseGraph &graph1)
 		twodimensionlist[i] = new int[this->numVerticies];
 		for (int j = 0; j < this->numVerticies; j++)
 		{
-			twodimensionlist[i][j] = graph1.twodimensionlist[i][j];
+			twodimensionlist[i][j] = graph1->twodimensionlist[i][j];
 		}
 	}
+	return *this;
 	
 	
 }

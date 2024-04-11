@@ -1,46 +1,32 @@
-//===============================================================
 // SparseGraph.h
-// Header file of SparseGraph class
-// Name: Ashwin Krishnamurthy, Tanvi Shegaonkar, Dipanker Thapa
-// April 2024
-//===============================================================
-
-using namespace std;
-#include <iostream>
-
 #ifndef SPARSEGRAPH_H
 #define SPARSEGRAPH_H
 
-template <typename T>
-class SparseGraph : public Graph { //example of how inheritance works
+#include <vector>
+#include "Graph.h"
+
+class SparseGraph : public Graph {
 public:
-				// no need for constructor and destructor i think?
-			SparseGraph	(int V, int E);
-			~SparseGraph	(void);
-	SparseGraph<T>	operator=	(const Graph<T> &graph1);
-	bool		isEdge		(int v1, int v2) const override;
-	T		getWeight	(int v1, int v2) const override;
-	void		insertEdge	(int v1, int v2, T w) const override;
+
+    			SparseGraph	();
+    			SparseGraph	(int V, int E);
+    			SparseGraph	(const SparseGraph& graph);
+    			~SparseGraph	();
+
+    SparseGraph& 	operator=	(const SparseGraph& graph);
+    bool 		isEdge		(int v1, int v2) override;
+    int 		getWeight	(int v1, int v2) override;
+    void 		insertEdge	(int v1, int v2, int w) override;
 
 private:
-	struct AdjecencyListNode // this should be a linked list
-	{
-		int vertex;
-		T weight;
-		AdjecencyListNode* next;
-		
-		AdjecencyListNode (int v, T w)
-		{
-			vertex = v;
-			weight = w;
-			next = NULL;
-		}
-	};
-	
-	AdjecencyListNode** list
+    struct AdjacencyListNode {
+        int vertex;
+        int weight;
+
+        AdjacencyListNode(int v, int w) : vertex(v), weight(w) {}
+    };
+
+    std::vector<std::vector<AdjacencyListNode>> list; // Adjacency list
 };
 
-#endif
-
-
-
+#endif // SPARSEGRAPH_H
