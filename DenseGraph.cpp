@@ -1,115 +1,57 @@
 //===============================================================
 // DenseGraph.cpp
-// implementation of DenseGraph class
+// Implementation of DenseGraph class
 // Name: Ashwin Krishnamurthy, Tanvi Shegaonkar, Dipanker Thapa
 // April 2024
 //===============================================================
 
-using namespace std;
-#include <iostream>
-#include <vector>
 #include "DenseGraph.h"
+#include <vector>
+#include <stdexcept>
 
-// #ifndef DIRECTED_GRAPH Directed Graphs
-
-// #ifndef UNDIRECTED_GRAPH  Undirected graph <- in specific implementations in insertEdge and other places
-
-
-
-
-DenseGraph::DenseGraph ( int V, int E ): Graph (V, E)
-{
-	twodimensionlist = new int*[V];
-	for (int i = 0; i < V; i++)
-	{
-		twodimensionlist[i] = new int[V];
-		for (int j = 0; j < V; j++)
-			twodimensionlist[i][j] = -1;
-	}
+DenseGraph::DenseGraph() : Graph(10, 0) {
+    matrix.resize(10, std::vector<int>(10, -1)); // Default size with -1 indicating no edge
 }
 
-
-DenseGraph::~DenseGraph ( void )
-{
-	twodimensionlist.size
-	for (int i = 0; i < V; i++)
-	{
-		delete[] twodimensionlist[i];
-	}
-	delete[] twodimensionlist;
+DenseGraph::DenseGraph(int V, int E) : Graph(V, E) {
+    matrix.resize(V, std::vector<int>(V, -1));
 }
 
-DenseGraph::DenseGraph(Graph * graph1) : Graph( graph1)
-{
-	twodimensionlist = new int*[this->numVerticies];
-	for (int i = 0; i < this->numVerticies; i++)
-	{
-		twodimensionlist[i] = new int[this->numVerticies];
-		for (int j = 0; j < this->numVerticies; j++)
-		{
-			twodimensionlist[i][j] = graph1->twodimensionlist[i][j];
-		}
-	}
+DenseGraph::~DenseGraph() {
+    // Destructor - vector handles memory!
 }
 
-// assignment operator
-DenseGraph&	DenseGraph::operator=(Graph * graph1) : Graph(graph1)
-{
-	if (*this != &graph1)
-	{
-		for (int i = 0; i < V; i++)
-		{
-			delete[] twodimensionlist[i];
-		}
-		delete[] twodimensionlist;
-	}
-	numVerticies = graph1.V;
-	numEdges = graph1.E;
-	
-	twodimensionlist = new int*[this->numVerticies];
-	for (int i = 0; i < this->numVerticies; i++)
-	{
-		twodimensionlist[i] = new int[this->numVerticies];
-		for (int j = 0; j < this->numVerticies; j++)
-		{
-			twodimensionlist[i][j] = graph1->twodimensionlist[i][j];
-		}
-	}
-	return *this;
-	
-	
+DenseGraph::DenseGraph(const DenseGraph& graph1) : Graph(graph1) {
+    matrix = graph1.matrix;
 }
 
-//isEdge
-bool DenseGraph::isEdge(int v1, int v2)
-{
-	// don't have to specify undirected or directed because assumed 
-	if (v1 < 0 or v1 >= V or v2 < 0 or v2 >= V)
-		throw out_of_range("Index out of range");  
-	if (twodimensionlist[v1][v2] == -1)
-		return false;
-	return true;
+DenseGraph& DenseGraph::operator=(const DenseGraph& graph1) {
+    if (this != &graph1) {
+        Graph::operator=(graph1);
+        matrix = graph1.matrix;
+    }
+    return *this;
 }
 
-//getWeight
-int DenseGraph::getWeight(int v1, int v2)
-{
-	if (v1 < 0 or v1 >= numVerticies or v2 < 0 or v2 >= numVerticies)
-		throw out_of_range("Index out of range");  
-	return twodimensionlist[v1][v2];
+bool DenseGraph::isEdge(int v1, int v2) const {
+    if (v1 < 0 || v1 >= numVertices || v2 < 0 || v2 >= numVertices)
+        throw std::out_of_range("Vertex index out of range");
+    return matrix[v1][v2] != -1;
 }
 
-//insertEdge
-void DenseGraph::insertEdge (int v1, int v2, int w)
-{
-	if (v1 < 0 or v1 >= numVerticies or v2 < 0 or v2 >= numVerticies)
-		throw out_of_range("Index out of range");
-	twodimensionlist[v1][v2] = w;
-	#ifndef DIRECTED_GRAPH
-	twodimensionlist[v2][v1] = w;
-	#endif
-	
+int DenseGraph::getWeight(int v1, int v2) const {
+    if (v1 < 0 || v1 >= numVertices || v2 < 0 || v2 >= numVertices)
+        throw std::out_of_range("Vertex index out of range");
+    if (matrix[v1][v2] == -1)
+        throw std::logic_error("Edge doesn't exist");
+    return matrix[v1][v2];
 }
 
-
-
+void DenseGraph::insertEdge(int v1, int v2, int w) {
+    if (v1 < 0 || v1 >= numVertices || v2 < 0 || v2 >= numVertices)
+        throw std::out_of_range("Vertex index out of range");
+    matrix[v1][v2] = w;
+#ifndef DIRECTED_GRAPH
+    matrix[v2][v1] = w;
+#endif
+}
