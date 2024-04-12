@@ -1,19 +1,26 @@
 //===============================================================
 // DenseGraph.h
-// implementation of DenseGraph class
+// Implementation of DenseGraph class
 // Name: Ashwin Krishnamurthy, Tanvi Shegaonkar, Dipanker Thapa
 // April 2024
 //===============================================================
 
-using namespace std;
-#include <iostream>
 #include <vector>
 #include "Graph.h"
 
-#ifndef DENSEGRAPH_H
-#define DENSEGRAPH_H
+class DenseGraph : public Graph {
+public:
+    DenseGraph(); 
+    DenseGraph(int V, int E); 
+    ~DenseGraph(); 
+    DenseGraph(const DenseGraph& other); 
+    DenseGraph& operator=(const DenseGraph& other);
 
+    bool isEdge(int v1, int v2) const;
+    int getWeight(int v1, int v2) const;
+    void insertEdge(int v1, int v2, int w);
 
+<<<<<<< HEAD
 class DenseGraph : public Graph { //example of how inheritance works
 public:
 				
@@ -33,10 +40,8 @@ public:
    {
    	return os;
    }*/
+=======
+>>>>>>> e8833085f33fe7c34a39e5bdb36d9f9ed24ac329
 private:
-	
-	int** twodimensionlist; 
+    std::vector<std::vector<int>> matrix; 
 };
-
-#endif
-
