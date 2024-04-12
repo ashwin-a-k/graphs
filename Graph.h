@@ -21,8 +21,8 @@ virtual	Graph&	operator=	( Graph * mygraph) = 0;
 virtual	bool	isEdge		(int v1, int v2) = 0;
 virtual	int	getWeight	(int v1, int v2) = 0;
 virtual	void	insertEdge	(int v1, int v2, int w) = 0;
-/* istream& operator >> ( istream& input, Graph * graph);
- ostream& operator << ( ostream& os, Graph * graph);*/
+ istream& operator >> ( istream& input, Graph * graph);
+ ostream& operator << ( ostream& os, Graph * graph);
 protected:
 	int numVerticies;
 	int numEdges;
