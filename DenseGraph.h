@@ -25,14 +25,14 @@ public:
 	bool		isEdge		(int v1, int v2);
 	int		getWeight	(int v1, int v2);
 	void		insertEdge	(int v1, int v2, int w);
-   friend istream& operator >> ( istream& input, Graph * graph)
+   /*friend istream& operator >> ( istream& input, Graph * graph)
    {
    	return input;
    }
    friend ostream& operator << ( ostream& os, Graph * graph)
    {
    	return os;
-   }
+   }*/
 private:
 	
 	int** twodimensionlist; 

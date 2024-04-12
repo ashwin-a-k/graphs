@@ -20,7 +20,7 @@ int main ( void )
    int nv, ne;
    cin >> nv >> ne;
 
-   //gp = new DenseGraph(nv,ne);   // should work with either choice
+   gp = new DenseGraph(nv,ne);   // should work with either choice
    gp1 = new SparseGraph(nv,ne);
 
 	/*

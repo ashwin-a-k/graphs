@@ -25,10 +25,10 @@ SparseGraph::SparseGraph(int V, int E) : Graph(V, E)
     list.resize(V);
 }
 
-SparseGraph::SparseGraph(Graph * graph) : Graph(graph) 
+SparseGraph::SparseGraph(const SparseGraph& graph) : Graph(graph) 
 {
-    V = graph-> numVerticies;
-    E = graph-> numEdges;
+    //V = graph-> numVerticies;
+    //E = graph-> numEdges;
     list = graph.list;
 }
 
@@ -37,16 +37,37 @@ SparseGraph::~SparseGraph()
     // No need to explicitly delete nodes, as std::vector handles memory management
 }
 
-SparseGraph& SparseGraph::operator=(Graph * graph) 
+/*
+SparseGraph& SparseGraph::operator=(const SparseGraph& graph) 
 {
     if (this != &graph) {
         Graph::operator=(graph);
-        V = graph-> numVerticies;
-        E = graph-> numEdges;
+        //V = graph-> numVerticies;
+        //E = graph-> numEdges;
         list = graph.list;
     }
     return *this;
 }
+*/
+
+SparseGraph& SparseGraph::operator=(Graph* graph) {
+    if (this != graph) {
+        // Assuming Graph has a method to clear existing data
+        list.clear(); // You might need to implement this
+
+        // Now copy data from graph, assuming it's actually a SparseGraph
+        SparseGraph* sg = dynamic_cast<SparseGraph*>(graph);
+        if (sg) {
+            numVerticies = sg->numVerticies;
+            numEdges = sg->numEdges;
+            list = sg->list;
+        }
+    }
+    return *this;
+}
+
+
+
 
 bool SparseGraph::isEdge(int v1, int v2) 
 {

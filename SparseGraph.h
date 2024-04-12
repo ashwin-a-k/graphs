@@ -13,7 +13,11 @@ public:
     			SparseGraph	(const SparseGraph& graph);
     			~SparseGraph	();
 
-    SparseGraph& 	operator=	(const SparseGraph& graph);
+    //SparseGraph& 	operator=	(const SparseGraph& graph);
+    
+    SparseGraph&	operator=	( Graph * mygraph) override;
+    
+    
     bool 		isEdge		(int v1, int v2) override;
     int 		getWeight	(int v1, int v2) override;
     void 		insertEdge	(int v1, int v2, int w) override;
