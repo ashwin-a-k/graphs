@@ -22,6 +22,30 @@ public:
     int 		getWeight	(int v1, int v2) override;
     void 		insertEdge	(int v1, int v2, int w) override;
 
+    std::istream& operator>>(std::istream& input, SparseGraph& graph) {
+        int V, E, v1, v2, w;
+        input >> V >> E;
+        SparseGraph temp(V, E);
+        for (int i = 0; i < E; ++i) {
+            input >> v1 >> v2 >> w;
+            temp.insertEdge(v1, v2, w);
+        }
+        graph = &temp;
+        return input;
+    }
+
+    std::ostream& operator<<(std::ostream& os, const SparseGraph& graph) {
+        for (int i = 0; i < graph.list.size(); ++i) {
+            os << i << ": ";
+            for (const auto& node : graph.list[i]) {
+                os << "(" << node.vertex << ", " << node.weight << ") ";
+            }
+            os << std::endl;
+        }
+        return os;
+    }
+
+
 private:
     struct AdjacencyListNode {
         int vertex;
