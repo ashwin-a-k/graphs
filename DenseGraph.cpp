@@ -8,6 +8,9 @@
 #include "DenseGraph.h"
 #include <vector>
 #include <stdexcept>
+#include <iostream>
+#ifndef DENSEGRAPH_H
+#define DENSEGRAPH_H
 
 DenseGraph::DenseGraph() : Graph(10, 0) {
     matrix.resize(10, std::vector<int>(10, -1)); // Default size with -1 indicating no edge

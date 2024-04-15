@@ -35,15 +35,41 @@ friend std::ostream& operator<<(std::ostream& os, const Graph& graph);
 		void 	DFS			( void );
 		void	DFS_Visit		( int v, int &clock);
 		void	printDFSTable		( void );
-		void	printTopologicalSort	( void ); // don't have to get fully right
+		//void	printTopologicalSort	( void ); // don't have to get fully right
 		void	printDFSParethesization( void );
 		void 	classifyDFSEdges	( void );
-		void	indexSort		( int a[] );
+		//void	indexSort		( int a[] );
 		
 
 protected:
 	int numVerticies;
 	int numEdges;
+	
+	enum Color {WHITE, GRAY, BLACK};
+	
+	struct Vertex
+	{
+		Color color;
+		int fTime;
+		int dTime;
+		Vertex* pi;
+		int d;
+		bool visited;
+		std::vector<Vertex> vertices;
+		std::vector<std::vector<int>> adjList
+		
+		/*
+		Vertex() 
+		{
+			COLOR = WHITE;
+			dTime = 0;
+			fTime = 0;
+			d = INT_MAX;
+			pi = NULL;
+			visited = false;
+			
+		}*/
+	}
 
 
 	

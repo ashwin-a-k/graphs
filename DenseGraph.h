@@ -6,6 +6,7 @@
 //===============================================================
 
 #include <vector>
+#include <iostream>
 #include "Graph.h"
 
 class DenseGraph : public Graph {
