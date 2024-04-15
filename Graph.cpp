@@ -39,13 +39,88 @@ Graph::~Graph ( void )
 
 bool	Graph::isEdge		(int v1, int v2)
 {
+
 }
 int	Graph::getWeight	(int v1, int v2)
 {
+
 }
 void	Graph::insertEdge	(int v1, int v2, int w)
 {
+
 }
 
 // The rest of this class it virtual, polymorphism takes place
+
+
+//BFS starts here
+void 	Graph::BFS 			( int source )
+{
+
+}
+
+void	Graph::printBFSTable		( int source )
+{
+
+}
+
+
+void 	Graph::printBFSPath		( int s, int d)
+{
+
+}
+
+void	Graph::printMostDistant	( int s )
+{
+
+}
+
+bool	Graph::isConnected		( void )
+{
+
+}
+
+//DFS Starts here
+void	Graph::DFS			( void )
+{
+
+}
+
+void 	Graph::DFS_Visit		( void )
+{
+
+}
+
+void 	Graph::printDFSTable		( void )
+{
+
+}
+
+void	Graph::printTopologicalSort	( void )
+{
+
+}
+
+void	Graph::printDFSParethesization ( void )
+{
+
+}
+
+void	Graph::classifyDFSEdges	( void )
+{
+
+}
+
+void	Graph::indexSort		( int a[] )
+{
+
+}
+
+
+
+
+
+
+
+
 
