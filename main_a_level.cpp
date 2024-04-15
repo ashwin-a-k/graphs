@@ -23,10 +23,8 @@ int main ( void )
    gp = new DenseGraph(nv,ne);   // should work with either choice
    gp1 = new SparseGraph(nv,ne);
 
-	/*
    cin >> (*gp);                    // read in the graph
    cout << (*gp);                   // print out the graph
-	*/
 	
    printf("Edge Testing\n");
 

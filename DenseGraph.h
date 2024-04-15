@@ -14,25 +14,25 @@ public:
     DenseGraph(int V, int E); 
     ~DenseGraph(); 
     DenseGraph(const DenseGraph& other); 
-    DenseGraph& operator=(const DenseGraph& other);
+    Graph& operator=(Graph* mygraph);
 
-    bool isEdge(int v1, int v2) const;
-    int getWeight(int v1, int v2) const;
+    bool isEdge(int v1, int v2);
+    int getWeight(int v1, int v2);
     void insertEdge(int v1, int v2, int w);
-
-    std::istream& operator>>(std::istream& input, DenseGraph& graph) {
+    
+    friend std::istream& operator>>(std::istream& input, DenseGraph& graph) {
         int V, E, v1, v2, w;
         input >> V >> E;
-        DenseGraph temp(V, E);
+        DenseGraph graph1(V, E);
         for (int i = 0; i < E; ++i) {
             input >> v1 >> v2 >> w;
-            temp.insertEdge(v1, v2, w);
+            graph1.insertEdge(v1, v2, w);
         }
-        graph = &temp;
+        graph = &graph1;
         return input;
     }
 
-    std::ostream& operator<<(std::ostream& os, const DenseGraph& graph) {
+    friend std::ostream& operator<<(std::ostream& os, const DenseGraph& graph) {
         for (int i = 0; i < graph.numVerticies; ++i) {
             for (int j = 0; j < graph.numVerticies; ++j) {
                 os << graph.matrix[i][j] << " ";

@@ -25,22 +25,31 @@ DenseGraph::DenseGraph(const DenseGraph& graph1) : Graph(graph1) {
     matrix = graph1.matrix;
 }
 
-DenseGraph& DenseGraph::operator=(const DenseGraph& graph1) {
-    if (this != &graph1) {
-        Graph::operator=(graph1);
-        matrix = graph1.matrix;
+Graph& DenseGraph::operator=(Graph* mygraph) {
+    if (this != mygraph) {
+        DenseGraph* graph1 = dynamic_cast<DenseGraph*>(mygraph);
+        if (graph1) 
+        {
+            for (int i = 0; i < numVerticies; i++) 
+            {
+                for (int j = 0; j < numVerticies; j++)
+                    matrix[i][j] = graph1->matrix[i][j];
+            }
+            numVerticies = graph1->numVerticies;
+            numEdges = graph1->numEdges;
+        }
     }
     return *this;
 }
 
-bool DenseGraph::isEdge(int v1, int v2) const {
-    if (v1 < 0 || v1 >= numVertices || v2 < 0 || v2 >= numVertices)
+bool DenseGraph::isEdge(int v1, int v2) {
+    if (v1 < 0 || v1 >= numVerticies || v2 < 0 || v2 >= numVerticies)
         throw std::out_of_range("Vertex index out of range");
     return matrix[v1][v2] != -1;
 }
 
-int DenseGraph::getWeight(int v1, int v2) const {
-    if (v1 < 0 || v1 >= numVertices || v2 < 0 || v2 >= numVertices)
+int DenseGraph::getWeight(int v1, int v2) {
+    if (v1 < 0 || v1 >= numVerticies || v2 < 0 || v2 >= numVerticies)
         throw std::out_of_range("Vertex index out of range");
     if (matrix[v1][v2] == -1)
         throw std::logic_error("Edge doesn't exist");
@@ -48,7 +57,7 @@ int DenseGraph::getWeight(int v1, int v2) const {
 }
 
 void DenseGraph::insertEdge(int v1, int v2, int w) {
-    if (v1 < 0 || v1 >= numVertices || v2 < 0 || v2 >= numVertices)
+    if (v1 < 0 || v1 >= numVerticies || v2 < 0 || v2 >= numVerticies)
         throw std::out_of_range("Vertex index out of range");
     matrix[v1][v2] = w;
 #ifndef DIRECTED_GRAPH

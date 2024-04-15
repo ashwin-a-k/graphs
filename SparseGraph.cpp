@@ -52,10 +52,8 @@ SparseGraph& SparseGraph::operator=(const SparseGraph& graph)
 
 SparseGraph& SparseGraph::operator=(Graph* graph) {
     if (this != graph) {
-        // Assuming Graph has a method to clear existing data
-        list.clear(); // You might need to implement this
+        list.clear();
 
-        // Now copy data from graph, assuming it's actually a SparseGraph
         SparseGraph* sg = dynamic_cast<SparseGraph*>(graph);
         if (sg) {
             numVerticies = sg->numVerticies;
