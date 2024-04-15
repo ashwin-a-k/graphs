@@ -13,16 +13,33 @@ using namespace std;
 
 class Graph {
 public:
-			Graph		(void);
-			Graph		(int V, int E);
-			Graph		(Graph * mygraph);
-virtual 		~Graph		(void) = 0;
-virtual	Graph&	operator=	( Graph * mygraph) = 0;
-virtual	bool	isEdge		(int v1, int v2) = 0;
-virtual	int	getWeight	(int v1, int v2) = 0;
-virtual	void	insertEdge	(int v1, int v2, int w) = 0;
+			Graph			(void);
+			Graph			(int V, int E);
+			Graph			(Graph * mygraph);
+virtual 		~Graph			(void) = 0;
+virtual	Graph&	operator=		( Graph * mygraph) = 0;
+virtual	bool	isEdge			(int v1, int v2) = 0;
+virtual	int	getWeight		(int v1, int v2) = 0;
+virtual	void	insertEdge		(int v1, int v2, int w) = 0;
 friend std::istream& operator>>(std::istream& input, Graph& graph);
 friend std::ostream& operator<<(std::ostream& os, const Graph& graph);
+
+		// newly added algorithms: BFS
+		void 	BFS 			( int source );
+		void	printBFSTable		( int source );
+		void 	printBFSPath		( int s, int d);
+		void	printMostDistant	( int s );
+		bool	isConnected		( void );
+		
+		//newly added algorithms: DFS
+		void 	DFS			( void );
+		void	DFS_Visit		( int v, int &clock);
+		void	printDFSTable		( void );
+		void	printTopologicalSort	( void ); // don't have to get fully right
+		void	printDFSParethesization( void );
+		void 	classifyDFSEdges	( void );
+		void	indexSort		( int a[] );
+		
 
 protected:
 	int numVerticies;
