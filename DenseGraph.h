@@ -5,8 +5,12 @@
 // April 2024
 //===============================================================
 
-#include <vector>
+#ifndef DENSEGRAPH_H
+#define DENSEGRAPH_H
+
+using namespace std;
 #include <iostream>
+#include <vector>
 #include "Graph.h"
 
 class DenseGraph : public Graph {
@@ -21,6 +25,10 @@ public:
     int getWeight(int v1, int v2);
     void insertEdge(int v1, int v2, int w);
     
+protected: 
+	 void read(istream& input) override;  
+    void print(ostream& os)  const override;
+    /*
     friend std::istream& operator>>(std::istream& input, DenseGraph& graph) {
         int V, E, v1, v2, w;
         input >> V >> E;
@@ -42,8 +50,12 @@ public:
         }
         return os;
     }
-
+*/
 
 private:
     std::vector<std::vector<int>> matrix; 
 };
+
+
+#endif 
+

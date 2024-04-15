@@ -5,19 +5,17 @@
 // April 2024
 //===============================================================
 
+#include <iostream>
 #include "DenseGraph.h"
 #include <vector>
 #include <stdexcept>
-#include <iostream>
-#ifndef DENSEGRAPH_H
-#define DENSEGRAPH_H
 
 DenseGraph::DenseGraph() : Graph(10, 0) {
-    matrix.resize(10, std::vector<int>(10, -1)); // Default size with -1 indicating no edge
+    matrix.resize(10, vector<int>(10, -1)); // Default size with -1 indicating no edge
 }
 
 DenseGraph::DenseGraph(int V, int E) : Graph(V, E) {
-    matrix.resize(V, std::vector<int>(V, -1));
+    matrix.resize(V, vector<int>(V, -1));
 }
 
 DenseGraph::~DenseGraph() {
@@ -47,23 +45,46 @@ Graph& DenseGraph::operator=(Graph* mygraph) {
 
 bool DenseGraph::isEdge(int v1, int v2) {
     if (v1 < 0 || v1 >= numVerticies || v2 < 0 || v2 >= numVerticies)
-        throw std::out_of_range("Vertex index out of range");
+        throw out_of_range("Vertex index out of range");
     return matrix[v1][v2] != -1;
 }
 
 int DenseGraph::getWeight(int v1, int v2) {
     if (v1 < 0 || v1 >= numVerticies || v2 < 0 || v2 >= numVerticies)
-        throw std::out_of_range("Vertex index out of range");
+        throw out_of_range("Vertex index out of range");
     if (matrix[v1][v2] == -1)
-        throw std::logic_error("Edge doesn't exist");
+        throw logic_error("Edge doesn't exist");
     return matrix[v1][v2];
 }
 
 void DenseGraph::insertEdge(int v1, int v2, int w) {
     if (v1 < 0 || v1 >= numVerticies || v2 < 0 || v2 >= numVerticies)
-        throw std::out_of_range("Vertex index out of range");
+        throw out_of_range("Vertex index out of range");
     matrix[v1][v2] = w;
 #ifndef DIRECTED_GRAPH
     matrix[v2][v1] = w;
 #endif
 }
+
+
+
+
+void DenseGraph::read(istream& input)
+{
+	int v1, v2, w;
+	for(int i = 0; i < numVerticies;i++){
+		cin >> v1 >> v2 >> w; 
+		insertEdge(v1,v2,w);
+	}
+
+}
+   
+void DenseGraph::print(ostream& os) const
+{
+	
+	cout <<"G = ("<< numVerticies << ","<< numEdges <<")\n";
+	for(int i = 0; i < numVerticies;i++){
+		
+	}
+}
+

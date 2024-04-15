@@ -37,8 +37,10 @@ friend std::ostream& operator<<(std::ostream& os, const Graph& graph);
 		void	printDFSTable		( void );
 		//void	printTopologicalSort	( void ); // don't have to get fully right
 		void	printDFSParethesization( void );
+		void 	Graph::DFSParethesizationHelper(int v, std::vector<bool> visit, 
+								std::string& parenth)
 		void 	classifyDFSEdges	( void );
-		//void	indexSort		( int a[] );
+		//void	indexSort		( std::vector<int>& a );
 		
 
 protected:
