@@ -22,10 +22,9 @@ public:
     int 		getWeight	(int v1, int v2) override;
     void 		insertEdge	(int v1, int v2, int w) override;
 
-    friend std::istream& operator>>(std::istream& input, Graph& graph) {
+    friend std::istream& operator>>(std::istream& input, SparseGraph& graph) {
         int V, E, v1, v2, w;
         input >> V >> E;
-        SparseGraph* sg = dynamic_cast<SparseGraph*>(graph)
         SparseGraph graph1(V, E);
         for (int i = 0; i < E; ++i) {
             input >> v1 >> v2 >> w;
