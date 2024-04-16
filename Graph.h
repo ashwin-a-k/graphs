@@ -64,29 +64,31 @@ friend std::ostream& operator<<(std::ostream& os, const Graph& mygraph) {
 		void	printDFSTable		( void );
 		//void	printTopologicalSort	( void ); // told to skip
 		void	printDFSParethesization( void );
-		void 	DFSParethesizationHelper(int v, std::vector<bool> visit,std::string& parenth);
+		void 	DFSParethesizationHelper(int v, std::vector<bool> 
+							visit,std::string& parenth);
 		void 	classifyDFSEdges	( void );
-		//void	indexSort		( std::vector<int>& a );
+		//void	indexSort		( std::vector<int>& a ); // used for topo sort
 		
 
 protected:
 	int numVertices;
-	int numEdges;
-	
-	enum Color {WHITE, GRAY, BLACK};
-	
-	struct Vertex
-	{
-		Color color;
-		int fTime;
-		int dTime;
-		Vertex* pi;
-		int d;
-		bool visited;
-		std::vector<Vertex> vertices;
-		std::vector<std::vector<int>> adjList;
-		
-	};
+    	int numEdges;
+
+    	enum Color { WHITE, GRAY, BLACK };
+
+    	struct Vertex 
+    	{
+        	int id;
+        	Color color;
+        	int f;
+        	int d;
+        	bool visited;
+        	Vertex* pi;
+        	std::vector<Vertex*> adjList;
+
+        	// Vertex(int id) : id(id), color(WHITE), f(0), d(0), pi(nullptr), visited(false) {}
+    	};
+    	std::vector<Vertex> vertices;
 
 
 	

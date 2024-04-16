@@ -25,7 +25,7 @@ SparseGraph::SparseGraph(int V, int E) : Graph(V, E)
     list.resize(V);
 }
 
-SparseGraph::SparseGraph(const SparseGraph& graph) : Graph(mygraph) 
+SparseGraph::SparseGraph(const SparseGraph& graph) : Graph(graph) 
 {
     //V = graph-> numVertices;
     //E = graph-> numEdges;

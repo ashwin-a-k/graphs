@@ -30,7 +30,7 @@ Graph::Graph (int V, int E)
 }
 
 // Copy Constructor
-Graph::Graph (const Graph& mygraph)
+	Graph::Graph 			(const Graph& mygraph)
 {
 	numVertices = mygraph.numVertices;
 	numEdges = mygraph.numEdges;
@@ -47,61 +47,177 @@ Graph&	Graph::operator=		(const Graph& mygraph)
 }
 
 
-Graph::~Graph ( void )
+	Graph::~Graph 			( void )
 {
 	// nothing goes here, nothing to deallocate
 }
 
 
+bool 	Graph::isEdge			(int v1, int v2) {
 
-// The rest of this class it virtual, polymorphism takes place
+    if (v1 >= 0 && v1 < numVertices && v2 >= 0 && v2 < numVertices) {
+    
+        for (Vertex* v : vertices[v1].adjList) {
+            if (v->id == v2) {
+                return true;
+            }
+        }
+    }
+    return false;
+}
+
+int 	Graph::getWeight		(int v1, int v2) 
+{
+
+    if (v1 >= 0 && v1 < numVertices && v2 >= 0 && v2 < numVertices) {
+        return isEdge(v1, v2) ? 1 : 0;
+    }
+    return 0;
+}
+
+void 	Graph::insertEdge		(int v1, int v2, int w) 
+{
+
+    if (v1 >= 0 && v1 < numVertices && v2 >= 0 && v2 < numVertices) {
+        if (!isEdge(v1, v2)) {
+            vertices[v1].adjList.push_back(&vertices[v2]);
+            numEdges++;
+        }
+    }
+}
+
+
 
 
 //BFS starts here
-void 	Graph::BFS 			( int source )
+void 	Graph::BFS			(int source) 
 {
-	INT_MAX = 10;
-	vector<int> d(numVertices, INT_MAX);
-	queue<int> q;
-	
-	d[source] = 0;
-	q.push(source);
-	
-	while(!q.empty())
-	{
-		int curr = q.front();
-		q.pop();
-		
-		for (int i = 0; i < numVertices; i++)
-		{
-			if (isEdge(current, i) and d[i] = INT_MAX) 
-			{
-				d[i] = d[curr] + 1;
-				q.
-			}
-		}
-	}
+
+    for (auto& vertex : vertices) {
+        vertex.color = WHITE;
+        vertex.d = std::numeric_limits<int>::max();
+        vertex.pi = nullptr;
+    }
+    
+
+    vertices[source].color = GRAY;
+    vertices[source].d = 0;
+    vertices[source].pi = nullptr;
+
+
+    std::queue<int> Q;
+    Q.push(source);
+
+
+    while (!Q.empty()) {
+        int u = Q.front();
+        Q.pop();
+
+        for (Vertex* v : vertices[u].adjList) {
+            if (v->color == WHITE) {
+                v->color = GRAY;
+                v->d = vertices[u].d + 1;
+                v->pi = &vertices[u];
+                Q.push(v->id);
+            }
+           
+        }
+        
+        vertices[u].color = BLACK;
+    }
+    
 }
 
-void	Graph::printBFSTable		( int source )
+
+void 	Graph::printBFSTable		(int source) 
 {
 
+    std::cout << "Vertex | Distance | Color | Pi" << std::endl;
+    
+    for (const Vertex& vertex : vertices) {
+        std::cout << vertex.id << " | " << vertex.d << " | " << vertex.color << " | ";
+        
+        if (vertex.pi != nullptr)
+            std::cout << vertex.pi->id;
+            
+        else
+            std::cout << "NULL";
+        std::cout << std::endl;
+    }
 }
 
 
-void 	Graph::printBFSPath		( int s, int d)
+void 	Graph::printBFSPath		(int s, int d) 
 {
 
+    BFS(s);
+
+    if (vertices[d].color == WHITE) {
+        std::cout << "No path from v" << s << " to v" << d << " exists" << std::endl;
+        return;
+    }
+
+    std::vector<int> path;
+
+    for (Vertex* v = &vertices[d]; v != nullptr; v = v->pi) {
+        path.push_back(v->id);
+    }
+
+    std::reverse(path.begin(), path.end());
+
+    std::cout << "Path from v" << s << " to v" << d << ": ";
+    
+    for (size_t i = 0; i < path.size(); ++i) {
+        std::cout << "v" << path[i];
+        if (i < path.size() - 1)
+            std::cout << " -> ";
+    }
+    
+    std::cout << std::endl;
 }
 
-void	Graph::printMostDistant	( int s )
+void 	Graph::printMostDistant	(int s) 
 {
 
+    BFS(s);
+
+    int max_d = 0;
+    std::vector<int> dvert;
+
+    for (const Vertex& v : vertices) {
+        if (v.d != std::numeric_limits<int>::max() && v.d > max_d) {
+            max_d = v.d;
+            dvert.clear();
+            dvert.push_back(v.id);
+        } else if (v.d == max_d) {
+            dvert.push_back(v.id);
+        }
+    }
+
+    std::cout << "Most distant vertices from source v" << s << " are: ";
+    
+    for (int id : dvert) {
+        std::cout << "v" << id << " (dist=" << max_d << ") ";
+    }
+    
+    std::cout << std::endl;
 }
 
-bool	Graph::isConnected		( void )
+bool 	Graph::isConnected		(void) 
 {
 
+    BFS(0);
+
+    bool connected = true;
+    for (const Vertex& vertex : vertices) {
+        if (vertex.color == WHITE) {
+            connected = false;
+            break;
+        }
+    }
+
+    std::cout << "Graph is " << (connected ? "connected" : "not connected") << std::endl;
+    return connected;
 }
 
 //DFS Starts here
@@ -112,8 +228,8 @@ void	Graph::DFS			( void )
 	{
 		vertices[i].color = WHITE;
 		vertices[i].pi = NULL;
-		vertices[i].dTime = -1;
-		vertices[i].fTime = -1;
+		vertices[i].d = -1;
+		vertices[i].f = -1;
 	}
 	for (int u = 0; u < numVertices; u++)
 	{
@@ -127,19 +243,19 @@ void	Graph::DFS			( void )
 void 	Graph::DFS_Visit		( int u, int &clock ) //assigment says use v, i will use u like the book
 {
 	clock++;
-	vertices[u].dTime = clock;
+	vertices[u].d = clock;
 	vertices[u].color = GRAY;
 	
-	for ( int v : adjList[u])
+	for ( Vertex* v : vertices[u].adjList )
 	{
-		if (vertices[v].color == WHITE)
+		if (v->color == WHITE) 
 		{
-			vertices[v].pi = &vertices[u];
-			DFS_Visit(v, clock);
+            		v->pi = &vertices[u];
+            		DFS_Visit(v->id, clock);
 		}
 	}
-	clock+=1;
-	vertices[u].fTime = clock;
+	clock++;
+	vertices[u].f = clock;
 	vertices[u].color = BLACK;
 }
 
@@ -162,24 +278,13 @@ void 	Graph::printDFSTable		( void )
 		}
 		else
 			std::cout << "NULL";
-		std:cout << "(" << vertices[i].dTime << "," << vertices[i].fTime;
+		std:cout << "(" << vertices[i].d << "," << vertices[i].f;
 		std::cout << ")" << std::endl;
 	}
 }
 
 /*void	Graph::printTopologicalSort	( void ) // did not learn in class, told to skip
 {
-	std::priority_queue<int> pq;
-	for (int u = 0; u < numVertices; u++)
-	{
-		pq.push(vertices[u].fTime);
-	}
-	
-	for (int i = 0; i < pq.size(); i++)
-	{
-		if ()
-		std::cout << i 
-	}
 	
 }*/
 
@@ -187,6 +292,7 @@ void	Graph::printDFSParethesization ( void )
 {
 	std::string p;
 	std::vector<bool> visit (numVertices, false);
+	
 	for (int i = 0; i < numVertices; i++)
 	{
 		if (!visit[i])
@@ -196,47 +302,46 @@ void	Graph::printDFSParethesization ( void )
 	}
 }
 
-void 	Graph::DFSParethesizationHelper(int v, std::vector<bool> visit, std::string& parenth)
+void 	Graph::DFSParethesizationHelper(int v, std::vector<bool> visited, std::string& parenth)
 {
-	visit[v] = true;
+	visited[v] = true;
 	parenth += "(v" + std::to_string(v) + " ";
-	for (int i : adjList[v])
+	
+	for (Vertex* u : vertices[v].adjList) 
 	{
-		if (!visit[i])
+		if (!visited[u->id]) 
 		{
-			DFSParethesizationHelper(i, visit, parenth);
-		}
-	}
+			parenth += " ";
+			DFSParethesizationHelper(u->id, visited, parenth);
+        	}
+    	}
 	parenth += "v" + std::to_string(v) + ") ";
 }
 
-void	Graph::classifyDFSEdges	( void )
-{
-	for (int u = 0; u < numVertices; u++)
+void Graph::classifyDFSEdges(void) {
+
+	for (int u = 0; u < numVertices; u++) 
 	{
-		for (int v : adjList[u])
-		{
-			if ( vertices[u].dTime < vertices[v].dTime && vertices[v].dTime
-			< vertices[v].fTime && vertices[v].fTime < vertices[u].fTime )
+		for (Vertex* v : vertices[u].adjList) 
+		{        
+			if (vertices[u].d < v->d && v->d < v->f && v->f < vertices[u].f) 
 			{
-				std::cout << "Edge (" << vertices[u] << "," << vertices[v];
-				std::cout << ") is a tree/forward edge" << endl;
-			}
-			if ( vertices[v].dTime < vertices[u].dTime && vertices[u].dTime
-			< vertices[u].fTime && vertices[u].fTime < vertices[v].fTime )
-			{
-				std::cout << "Edge (" << vertices[u] << "," << vertices[v];
-				std::cout << ") is a back edge" << endl;
-			}
-			if ( vertices[v].dTime < vertices[v].fTime && vertices[v].fTime
-			< vertices[u].dTime && vertices[u].dTime < vertices[u].fTime )
-			{
-				std::cout << "Edge (" << vertices[u] << "," << vertices[v];
-				std::cout << ") is a cross edge" << endl;
-			}
-			
-		}
-	}
+				std::cout << "Edge (" << u << "," << v->id; 
+				std::cout << ") is a tree/forward edge" << std::endl;
+            		}
+            		if (v->d < vertices[u].d && vertices[u].d < vertices[u].f && 
+            								vertices[u].f < v->f) 
+            		{
+            			std::cout << "Edge (" << u << "," << v->id << ") is a back edge";
+            			std::cout << std::endl;
+            		}
+            		if (v->d < v->f && v->f < vertices[u].d && vertices[u].d < vertices[u].f) 
+            		{
+            			std::cout << "Edge (" << u << "," << v->id;
+            			std::cout << ") is a cross edge" << std::endl;
+            }
+        }
+    }
 }
 
 
