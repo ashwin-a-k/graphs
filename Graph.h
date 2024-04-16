@@ -35,7 +35,7 @@ friend std::ostream& operator<<(std::ostream& os, const Graph& graph);
 		void 	DFS			( void );
 		void	DFS_Visit		( int v, int &clock);
 		void	printDFSTable		( void );
-		//void	printTopologicalSort	( void ); // don't have to get fully right
+		//void	printTopologicalSort	( void ); // told to skip
 		void	printDFSParethesization( void );
 		void 	Graph::DFSParethesizationHelper(int v, std::vector<bool> visit, 
 								std::string& parenth)
@@ -44,7 +44,7 @@ friend std::ostream& operator<<(std::ostream& os, const Graph& graph);
 		
 
 protected:
-	int numVerticies;
+	int numVertices;
 	int numEdges;
 	
 	enum Color {WHITE, GRAY, BLACK};

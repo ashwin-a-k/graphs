@@ -17,21 +17,21 @@ using namespace std;
 // constuctor
 Graph::Graph ( void )
 {
-	numVerticies = 10;
+	numVertices = 10;
 	numEdges = 0;
 }
 
 // constructor with parameters
 Graph::Graph (int V, int E)
 {
-	numVerticies = V;
+	numVertices = V;
 	numEdges = E;
 }
 
 // Copy Constructor
 Graph::Graph (Graph * graph1)
 {
-	numVerticies = graph1->numVerticies;
+	numVertices = graph1->numVertices;
 	numEdges = graph1->numEdges;
 }
 
@@ -125,7 +125,6 @@ void	Graph::DFS			( void )
 
 void 	Graph::DFS_Visit		( int u, int &clock ) //assigment says use v, i will use u like the book
 {
-	Vertex* vVert = &vertices[v]
 	clock++;
 	vertices[u].dTime = clock;
 	vertices[u].color = GRAY;
@@ -167,7 +166,7 @@ void 	Graph::printDFSTable		( void )
 	}
 }
 
-void	Graph::printTopologicalSort	( void ) // did not learn in class, told to skip
+/*void	Graph::printTopologicalSort	( void ) // did not learn in class, told to skip
 {
 	std::priority_queue<int> pq;
 	for (int u = 0; u < numVertices; u++)
@@ -181,7 +180,7 @@ void	Graph::printTopologicalSort	( void ) // did not learn in class, told to ski
 		std::cout << i 
 	}
 	
-}
+}*/
 
 void	Graph::printDFSParethesization ( void )
 {
@@ -239,10 +238,6 @@ void	Graph::classifyDFSEdges	( void )
 	}
 }
 
-/*void	Graph::indexSort		( int a[] ) // did not learn in class, told to skip (used in topolgical sort
-{
-
-}*/
 
 
 
