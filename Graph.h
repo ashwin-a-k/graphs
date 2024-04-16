@@ -5,24 +5,51 @@
 // April 2024
 //===============================================================
 
-using namespace std;
+#include <vector>
 #include <iostream>
+#include <climits>
 
 #ifndef GRAPH_H
 #define GRAPH_H
 
 class Graph {
 public:
-			Graph			(void);
-			Graph			(int V, int E);
-			Graph			(Graph * mygraph);
-virtual 		~Graph			(void) = 0;
-virtual	Graph&	operator=		( Graph * mygraph) = 0;
+					Graph			(void);
+					Graph			(int V, int E);
+					Graph			(const Graph& mygraph);
+					Graph&	operator=		(const Graph& mygraph);
+		 		   ~Graph			(void);
+				 	
+				 	
 virtual	bool	isEdge			(int v1, int v2) = 0;
 virtual	int	getWeight		(int v1, int v2) = 0;
 virtual	void	insertEdge		(int v1, int v2, int w) = 0;
-friend std::istream& operator>>(std::istream& input, Graph& graph);
-friend std::ostream& operator<<(std::ostream& os, const Graph& graph);
+
+
+friend std::istream& operator>>(std::istream& input, Graph& mygraph) 
+{
+     int v1, v2, w;
+     for (int i = 0; i < mygraph.numEdges; ++i) {
+         input >> v1 >> v2 >> w;
+         mygraph.insertEdge(v1, v2, w);
+     }
+   return input;
+ }
+
+friend std::ostream& operator<<(std::ostream& os, const Graph& mygraph) {
+	os <<"G = ("<< mygraph.numVertices << ","<< mygraph.numEdges <<")\n";
+    /* for (int i = 0; i < graph.list.size(); ++i) {
+         os << i << ": ";
+         for (const auto& node : graph.list[i]) {
+             os << "(" << node.vertex << ", " << node.weight << ") ";
+         }
+         os << std::endl;
+     }
+    */
+     return os;
+ }
+
+
 
 		// newly added algorithms: BFS
 		void 	BFS 			( int source );
@@ -37,8 +64,7 @@ friend std::ostream& operator<<(std::ostream& os, const Graph& graph);
 		void	printDFSTable		( void );
 		//void	printTopologicalSort	( void ); // told to skip
 		void	printDFSParethesization( void );
-		void 	Graph::DFSParethesizationHelper(int v, std::vector<bool> visit, 
-								std::string& parenth)
+		void 	DFSParethesizationHelper(int v, std::vector<bool> visit,std::string& parenth);
 		void 	classifyDFSEdges	( void );
 		//void	indexSort		( std::vector<int>& a );
 		
@@ -58,20 +84,9 @@ protected:
 		int d;
 		bool visited;
 		std::vector<Vertex> vertices;
-		std::vector<std::vector<int>> adjList
+		std::vector<std::vector<int>> adjList;
 		
-		/*
-		Vertex() 
-		{
-			COLOR = WHITE;
-			dTime = 0;
-			fTime = 0;
-			d = INT_MAX;
-			pi = NULL;
-			visited = false;
-			
-		}*/
-	}
+	};
 
 
 	

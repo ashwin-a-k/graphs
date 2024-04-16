@@ -18,16 +18,14 @@ public:
     DenseGraph(); 
     DenseGraph(int V, int E); 
     ~DenseGraph(); 
-    DenseGraph(const DenseGraph& other); 
-    Graph& operator=(Graph* mygraph);
+    DenseGraph(const DenseGraph& mygraph); 
+    Graph& operator=(const DenseGraph& mygraph);
 
-    bool isEdge(int v1, int v2);
-    int getWeight(int v1, int v2);
-    void insertEdge(int v1, int v2, int w);
+    bool isEdge(int v1, int v2) override;
+    int getWeight(int v1, int v2) override;
+    void insertEdge(int v1, int v2, int w) override;
     
-protected: 
-	 void read(istream& input) override;  
-    void print(ostream& os)  const override;
+
     /*
     friend std::istream& operator>>(std::istream& input, DenseGraph& graph) {
         int V, E, v1, v2, w;

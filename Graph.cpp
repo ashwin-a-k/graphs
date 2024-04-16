@@ -11,6 +11,7 @@ using namespace std;
 #include <queue>
 #include <string>
 #include <stack>
+#include <climits>
 #include "Graph.h"
 
 
@@ -29,11 +30,22 @@ Graph::Graph (int V, int E)
 }
 
 // Copy Constructor
-Graph::Graph (Graph * graph1)
+Graph::Graph (const Graph& mygraph)
 {
-	numVertices = graph1->numVertices;
-	numEdges = graph1->numEdges;
+	numVertices = mygraph.numVertices;
+	numEdges = mygraph.numEdges;
 }
+// Assignment Operator
+
+Graph&	Graph::operator=		(const Graph& mygraph)
+{
+	numVertices = mygraph.numVertices;
+	numEdges = mygraph.numEdges;
+	
+	return *this;
+
+}
+
 
 Graph::~Graph ( void )
 {
@@ -41,18 +53,6 @@ Graph::~Graph ( void )
 }
 
 
-bool	Graph::isEdge		(int v1, int v2)
-{
-
-}
-int	Graph::getWeight	(int v1, int v2)
-{
-
-}
-void	Graph::insertEdge	(int v1, int v2, int w)
-{
-
-}
 
 // The rest of this class it virtual, polymorphism takes place
 
@@ -60,6 +60,7 @@ void	Graph::insertEdge	(int v1, int v2, int w)
 //BFS starts here
 void 	Graph::BFS 			( int source )
 {
+	INT_MAX = 10;
 	vector<int> d(numVertices, INT_MAX);
 	queue<int> q;
 	
@@ -160,7 +161,7 @@ void 	Graph::printDFSTable		( void )
 			std::cout << "pred: " << prev << " ";
 		}
 		else
-			std::cout << "NULL"
+			std::cout << "NULL";
 		std:cout << "(" << vertices[i].dTime << "," << vertices[i].fTime;
 		std::cout << ")" << std::endl;
 	}
@@ -203,7 +204,7 @@ void 	Graph::DFSParethesizationHelper(int v, std::vector<bool> visit, std::strin
 	{
 		if (!visit[i])
 		{
-			DFSParethesizationHelper(i, visit, parenth)
+			DFSParethesizationHelper(i, visit, parenth);
 		}
 	}
 	parenth += "v" + std::to_string(v) + ") ";

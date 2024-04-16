@@ -1,4 +1,4 @@
-//===============================================================
+	//===============================================================
 // SparseGraph.cpp
 // implementation of SparseGraph class
 // Name: Ashwin Krishnamurthy, Tanvi Shegaonkar, Dipanker Thapa
@@ -25,15 +25,16 @@ SparseGraph::SparseGraph(int V, int E) : Graph(V, E)
     list.resize(V);
 }
 
-SparseGraph::SparseGraph(const SparseGraph& graph) : Graph(graph) 
+SparseGraph::SparseGraph(const SparseGraph& graph) : Graph(mygraph) 
 {
-    //V = graph-> numVerticies;
+    //V = graph-> numVertices;
     //E = graph-> numEdges;
     list = graph.list;
 }
 
-SparseGraph::~SparseGraph() 
+SparseGraph::~SparseGraph()
 {
+		list.clear();
     // No need to explicitly delete nodes, as std::vector handles memory management
 }
 
@@ -42,7 +43,7 @@ SparseGraph& SparseGraph::operator=(const SparseGraph& graph)
 {
     if (this != &graph) {
         Graph::operator=(graph);
-        //V = graph-> numVerticies;
+        //V = graph-> numVertices;
         //E = graph-> numEdges;
         list = graph.list;
     }
@@ -50,13 +51,14 @@ SparseGraph& SparseGraph::operator=(const SparseGraph& graph)
 }
 */
 
-SparseGraph& SparseGraph::operator=(Graph* graph) {
+SparseGraph& SparseGraph::operator=(const SparseGraph& graph)
+{
     if (this != graph) {
         list.clear();
 
         SparseGraph* sg = dynamic_cast<SparseGraph*>(graph);
         if (sg) {
-            numVerticies = sg->numVerticies;
+            numVertices = sg->numVertices;
             numEdges = sg->numEdges;
             list = sg->list;
         }
